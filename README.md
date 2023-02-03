@@ -60,3 +60,25 @@ Additionally, make sure that the following extensions are enabled in your PHP:
 - json (enabled by default - don't turn it off)
 - [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+
+## Configuration myth-auth
+
+- [myth-auth](https://github.com/lonnieezell/myth-auth) source myth-auth library
+Once installed you need to configure the framework to use the **Myth\Auth** library.
+In your application, perform the following setup: 
+
+1. Edit **app/Config/Email.php** and verify that a **fromName** and **fromEmail** are set 
+    as that is used when sending emails for password reset, etc. 
+
+2. Edit **app/Config/Validation.php** and add the following value to the **ruleSets** array: 
+    `\Myth\Auth\Authentication\Passwords\ValidationRules::class`
+
+3. Ensure your database is setup correctly, then run the Auth migrations: 
+```shell
+    > php spark migrate -all  
+```
+
+NOTE: This library uses your application's cache settings to reduce database lookups. If you want
+to make use of this, simply make sure that your are using a cache engine other than `dummy` and 
+it is properly setup. The `GroupModel` and `PermissionModel` will handle caching and invalidation
+in the background for you.
