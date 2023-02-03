@@ -82,3 +82,4 @@ NOTE: This library uses your application's cache settings to reduce database loo
 to make use of this, simply make sure that your are using a cache engine other than `dummy` and 
 it is properly setup. The `GroupModel` and `PermissionModel` will handle caching and invalidation
 in the background for you.
+
